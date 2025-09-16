@@ -27,24 +27,34 @@ public class MainApp {
       Car car3 = new Car("KIA", 721);
       Car car4 = new Car("Dachia", 290);
 
-      userService.add(user1.setCar(car1).setUser(user1));
-      userService.add(user2.setCar(car2).setUser(user2));
-      userService.add(user3.setCar(car3).setUser(user3));
-      userService.add(user4.setCar(car4).setUser(user4));
+      user1.setCar(car1);
+      user2.setCar(car2);
+      user3.setCar(car3);
+      user4.setCar(car4);
+
+      car1.setUser(user1);
+      car2.setUser(user2);
+      car3.setUser(user3);
+      car4.setUser(user4);
+
+      userService.createUser(user1);
+      userService.createUser(user2);
+      userService.createUser(user3);
+      userService.createUser(user4);
 
       // 1. Пользователи с машинами
-      for (User user : userService.listUsers()) {
+      for (User user : userService.retrieveALLUsers()) {
          System.out.println(user + " " + user.getCar());
          System.out.println(" ");
       }
 
       // 2. Выбрать пользователя, владеющего машиной (по ее модели и серии)
-      System.out.println(userService.getUserByCar("Lada", 256));
+      System.out.println(userService.findUserByCar("Lada", 256));
       System.out.println(" ");
 
       // Нет пользователя с такой машиной
       try {
-         User notFoundUser = userService.getUserByCar("Ferrari", 920);
+         User notFoundUser = userService.findUserByCar("Ferrari", 920);
       } catch (NoResultException e) {
          System.out.println("User not found");
          System.out.println(" ");
